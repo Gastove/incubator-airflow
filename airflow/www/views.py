@@ -861,11 +861,11 @@ class Airflow(BaseView):
             from airflow.executors.celery_executor import CeleryExecutor
             executor = GetDefaultExecutor()
             if not isinstance(executor, CeleryExecutor):
-                flash("Only works with the CeleryExecutor, sorry", "error")
+                flash("You aren't using the CeleryExecutor, sorry", "error")
                 return redirect(origin)
         except ImportError:
             # in case CeleryExecutor cannot be imported it is not active either
-            flash("Only works with the CeleryExecutor, sorry", "error")
+            flash("Only works with the CeleryExecutor, which we can't import, sorry", "error")
             return redirect(origin)
 
         ti = models.TaskInstance(task=task, execution_date=execution_date)
