@@ -1607,6 +1607,7 @@ class TaskInstance(Base, LoggingMixin):
             if self.state == State.UP_FOR_RETRY and task.on_retry_callback:
                 task.on_retry_callback(context)
             if self.state == State.FAILED and task.on_failure_callback:
+                context['error'] = error
                 task.on_failure_callback(context)
         except Exception as e3:
             self.log.error("Failed at executing callback")
